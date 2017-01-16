@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <ctype.h>
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
@@ -9,10 +10,35 @@ void startEasy();
 void startHard();
 void startSuperHard();
 
+char readDigit(const char *prompt);
+char readLetter(const char *prompt);
 char readChar();
 void readString(char* str);
 void init();
 char generateLetter(char min, char max);
+
+char readDigit(const char *prompt) {
+	char digit;
+	do {
+		printf("%s ", prompt);
+		digit = readChar();
+	} while (digit < '0' || digit > '9');
+
+	return digit - '0';
+}
+
+char readLetter(const char *prompt) {
+	char letter;
+	do {
+		printf("%s ", prompt);
+		letter = readChar();
+		if (letter >= 'a' && letter <= 'z') {
+			letter = toupper(letter);
+		}
+	} while (letter < 'A' || letter > 'Z');
+
+	return letter;
+}
 
 char readChar() {
 	char ret;
@@ -34,9 +60,8 @@ void readString(char str[3]) {
 
 int main() {
 	while (play()) {
-		printf("Restart (y/n)? ");
-		char restart = readChar();
-		if (restart != 'y') {
+		char restart = readLetter("Restart (y/n)?");
+		if (restart != 'Y') {
 			break;
 		}
 	}
@@ -58,8 +83,7 @@ char play() {
 
 	int level;
 	do {
-		printf("Level: ");
-		level = readChar() - '0';
+		level = readDigit("Level:");
 	} while (level < 0 || level > 3);
 
 	switch (level) {
@@ -97,8 +121,8 @@ void startSuperEasy() {
 	char letter = generateLetter('A', 'Z');
 	char determineLetter = rand() % 2;
 	if (determineLetter) {
-		printf("Which letter is %d? ", letter - 'A' + 1);
-		char choice = readChar();
+		printf("Which letter is %d?", letter - 'A' + 1);
+		char choice = readLetter("");
 		if (choice == letter) {
 			printf("Congratulations!\n");
 		}
