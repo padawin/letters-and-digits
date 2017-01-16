@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 char play();
 void startSuperEasy();
 void startEasy();
 void startHard();
 void startSuperHard();
+
+void init();
 
 int main() {
 	while (play()) {
@@ -66,18 +69,26 @@ char play() {
 	return 1;
 }
 
-void startSuperEasy() {
+void init() {
+	time_t t;
+	srand((unsigned) time(&t));
+}
 
+void startSuperEasy() {
+	init();
 }
 
 void startEasy() {
+	init();
 
 }
 
 void startHard() {
+	init();
 
 }
 
 void startSuperHard() {
+	init();
 
 }
