@@ -8,16 +8,24 @@ void startEasy();
 void startHard();
 void startSuperHard();
 
+char readChar();
 void init();
+
+char readChar() {
+	char ret;
+	size_t sizeChoice = 1;
+	char* in = malloc(sizeof(char) * sizeChoice);
+	getline(&in, &sizeChoice, stdin);
+	ret = in[0];
+	free(in);
+	return ret;
+}
 
 int main() {
 	while (play()) {
 		printf("Restart (y/n)? ");
-		size_t sizeChoice = 1;
-		char* restart = malloc(sizeof(char) * sizeChoice);
-		getline(&restart, &sizeChoice, stdin);
-		free(restart);
-		if (restart[0] != 'y') {
+		char restart = readChar();
+		if (restart != 'y') {
 			break;
 		}
 	}
@@ -37,16 +45,11 @@ char play() {
 	printf("2 => letter subtraction A - B with A > B\n");
 	printf("3 => letter subtraction any letter\n");
 
-	size_t sizeChoice = 1;
-	char* choice = malloc(sizeof(char) * sizeChoice);
 	int level;
 	do {
 		printf("Level: ");
-		getline(&choice, &sizeChoice, stdin);
-		level = choice[0] - '0';
+		level = readChar() - '0';
 	} while (level < 0 || level > 3);
-
-	free(choice);
 
 	switch (level) {
 		case 0:
