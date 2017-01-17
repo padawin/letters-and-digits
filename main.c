@@ -5,10 +5,10 @@
 #include <time.h>
 
 char play();
-void startSuperEasy();
-void startEasy();
-void startHard();
-void startSuperHard();
+void startSuperEasy(int nbTurns, int currentTurn);
+void startEasy(int nbTurns, int currentTurn);
+void startHard(int nbTurns, int currentTurn);
+void startSuperHard(int nbTurns, int currentTurn);
 
 char readDigit(const char *prompt);
 char readLetter(const char *prompt);
@@ -59,6 +59,7 @@ void readString(char str[3]) {
 }
 
 int main() {
+	init();
 	while (play()) {
 		char restart = readLetter("Restart (y/n)?");
 		if (restart != 'Y') {
@@ -70,6 +71,7 @@ int main() {
 }
 
 char play() {
+	unsigned int level, nbTurns;
 	// ask for difficulty level:
 	// - 0 => letter to digit or digit to letter
 	// - 1 => letter addition
@@ -81,23 +83,24 @@ char play() {
 	printf("2 => letter subtraction A - B with A > B\n");
 	printf("3 => letter subtraction any letter\n");
 
-	int level;
 	do {
 		level = readDigit("Level:");
-	} while (level < 0 || level > 3);
+	} while (level > 3);
+
+	nbTurns = readDigit("How many turns (0 for infinite)?");
 
 	switch (level) {
 		case 0:
-			startSuperEasy();
+			startSuperEasy(nbTurns, 1);
 			break;
 		case 1:
-			startEasy();
+			startEasy(nbTurns, 1);
 			break;
 		case 2:
-			startHard();
+			startHard(nbTurns, 1);
 			break;
 		case 3:
-			startSuperHard();
+			startSuperHard(nbTurns, 1);
 			break;
 		default:
 			return 0;
@@ -116,8 +119,7 @@ char generateLetter(char min, char max) {
 	return min + rand() % (max + 1 - min);
 }
 
-void startSuperEasy() {
-	init();
+void startSuperEasy(int nbTurns, int currentTurn) {
 	char letter = generateLetter('A', 'Z');
 	char determineLetter = rand() % 2;
 	if (determineLetter) {
@@ -141,19 +143,20 @@ void startSuperEasy() {
 			printf("No! %c is %d.\n", letter, letter - 'A' + 1);
 		}
 	}
+
+	if (currentTurn != nbTurns) {
+		startSuperEasy(nbTurns, ++currentTurn);
+	}
 }
 
-void startEasy() {
-	init();
+void startEasy(int nbTurns, int currentTurn) {
 
 }
 
-void startHard() {
-	init();
+void startHard(int nbTurns, int currentTurn) {
 
 }
 
-void startSuperHard() {
-	init();
+void startSuperHard(int nbTurns, int currentTurn) {
 
 }
