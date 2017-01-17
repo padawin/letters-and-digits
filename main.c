@@ -59,6 +59,7 @@ void readString(char str[3]) {
 }
 
 int main() {
+	init();
 	while (play()) {
 		char restart = readLetter("Restart (y/n)?");
 		if (restart != 'Y') {
@@ -119,7 +120,6 @@ char generateLetter(char min, char max) {
 }
 
 void startSuperEasy(int nbTurns, int currentTurn) {
-	init();
 	char letter = generateLetter('A', 'Z');
 	char determineLetter = rand() % 2;
 	if (determineLetter) {
@@ -150,16 +150,13 @@ void startSuperEasy(int nbTurns, int currentTurn) {
 }
 
 void startEasy(int nbTurns, int currentTurn) {
-	init();
 
 }
 
 void startHard(int nbTurns, int currentTurn) {
-	init();
 
 }
 
 void startSuperHard(int nbTurns, int currentTurn) {
-	init();
 
 }
