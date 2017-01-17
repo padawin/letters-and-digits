@@ -71,7 +71,7 @@ int main() {
 }
 
 char play() {
-	int level, nbTurns;
+	unsigned int level, nbTurns;
 	// ask for difficulty level:
 	// - 0 => letter to digit or digit to letter
 	// - 1 => letter addition
@@ -85,7 +85,7 @@ char play() {
 
 	do {
 		level = readDigit("Level:");
-	} while (level < 0 || level > 3);
+	} while (level > 3);
 
 	nbTurns = readDigit("How many turns (0 for infinite)?");
 
